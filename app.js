@@ -6,9 +6,14 @@ const weatherIncon=document.querySelector(".weather-icon")
 searchBtn.addEventListener("click", () =>{
     checkWeather(searchBox.value);
 })
+searchBox.addEventListener("keydown", (event) => {
+    if(event.key==="Enter"){
+        checkWeather(searchBox.value)
+    }
+})
 async function checkWeather(city){
-    const response = await fetch(apiUrl + `&appid=${apiKey}`)
-    var data = await response.json
+    const response = await fetch(apiUrl + city + `&appid=${apiKey}`)
+    var data = await response.json()
     console.log(data)
     document.querySelector(".city").innerHTML = data.name
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C"
